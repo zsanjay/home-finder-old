@@ -17,31 +17,31 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class UserService {
 
-    private final UserRepository authRepository;
+    // private final UserRepository authRepository;
 
-    public UserService(UserRepository authRepository) {
-        this.authRepository = authRepository;
-    }
+    // public UserService(UserRepository authRepository) {
+    //     this.authRepository = authRepository;
+    // }
 
-    public UserDto login(LoginRequest loginRequest) throws UserNotFoundException {
+    // public UserDto login(LoginRequest loginRequest) throws UserNotFoundException {
        
-       Optional<User> userOptional = authRepository.findByEmail(loginRequest.email());
-       if(userOptional.isPresent()) {
-        User user = userOptional.get();
-        return new UserDto(user.getFullName() , user.getEmail(), user.getPassword());
-       }
-       throw new UserNotFoundException("No User is found with email " + loginRequest.email());
-    }
+    //    Optional<User> userOptional = authRepository.findByEmail(loginRequest.email());
+    //    if(userOptional.isPresent()) {
+    //     User user = userOptional.get();
+    //     return new UserDto(user.getFullName() , user.getEmail(), user.getPassword());
+    //    }
+    //    throw new UserNotFoundException("No User is found with email " + loginRequest.email());
+    // }
 
-    public UserDto register(SignUpRequest signUpRequest) {
+    // public UserDto register(SignUpRequest signUpRequest) {
 
-        User user = new User();
-        user.setId(1l);
-        user.setEmail(signUpRequest.email());
-        user.setFullName(signUpRequest.fullName());
-        user.setPassword(signUpRequest.password());
+    //     User user = new User();
+    //     user.setId(1l);
+    //     user.setEmail(signUpRequest.email());
+    //     user.setFullName(signUpRequest.fullName());
+    //     user.setPassword(signUpRequest.password());
 
-        user = authRepository.save(user);
-        return new UserDto(user.getFullName(), user.getEmail(), user.getPassword());
-    }
+    //     user = authRepository.save(user);
+    //     return new UserDto(user.getFullName(), user.getEmail(), user.getPassword());
+    // }
 }

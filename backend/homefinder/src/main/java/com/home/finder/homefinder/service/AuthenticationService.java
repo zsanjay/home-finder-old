@@ -15,21 +15,24 @@ public class AuthenticationService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
     private final AuthenticationManager authenticationManager;
+    private final SequenceGeneratorService sequenceGeneratorService;
 
     public AuthenticationService(
         UserRepository userRepository, 
         AuthenticationManager authenticationManager,
-        PasswordEncoder passwordEncoder
+        PasswordEncoder passwordEncoder,
+        SequenceGeneratorService sequenceGeneratorService
         ) {
             this.authenticationManager = authenticationManager;
             this.userRepository = userRepository;
             this.passwordEncoder = passwordEncoder;
+            this.sequenceGeneratorService = sequenceGeneratorService;
     }
 
     public User signUp(UserDto userDto) {
         User user = new User();
+        user.setId(sequenceGeneratorService.generateSequence(User.SEQUENCE_NAME));
         user.setFullName(userDto.fullName());
         user.setEmail(userDto.email());
         user.setPassword(passwordEncoder.encode(userDto.password()));

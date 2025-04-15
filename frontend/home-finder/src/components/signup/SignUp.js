@@ -13,10 +13,12 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
-import AppTheme from '../shared-theme/AppTheme';
-import ColorModeSelect from '../shared-theme/ColorModeSelect';
-import { GoogleIcon, FacebookIcon } from './CustomIcons';
+import AppTheme from '../../shared-theme/AppTheme';
+import ColorModeSelect from '../../shared-theme/ColorModeSelect';
+import { GoogleIcon, FacebookIcon } from '../CustomIcons';
 import { useForm } from 'react-hook-form';
+import { SignUpFn }  from '../../service/authService';
+import { useMutation } from '@tanstack/react-query';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -70,10 +72,21 @@ export default function SignUp(props) {
   const [nameError, setNameError] = React.useState(false);
   const [nameErrorMessage, setNameErrorMessage] = React.useState('');
 
+  const { mutate } = useMutation({
+    mutationFn: SignUpFn,
+    onSuccess: (data) => {
+      console.log("User is successfully signed up", data);
+      reset();
+    },
+    onError: (error) => {
+      console.error("Signup error:", error);
+    }
+  });
+
   const onSubmit = (data) => {
-    console.log("data ", data);
-    reset();
-  }
+    console.log("Submitting data:", data);
+    mutate(data);
+  };
 
   const validateInputs = () => {
 
@@ -112,29 +125,6 @@ export default function SignUp(props) {
 
     return isValid;
   };
-
-//   const handleSubmit = (event) => {
-//     if (nameError || emailError || passwordError) {
-//       event.preventDefault();
-//       return;
-//     }
-//     const { name, email, password} = event.currentTarget;
-
-//     setFormData({
-//         ...formData,
-//         name : name,
-//         email : email,
-//         password : password
-//     })
-//     console.log(formData);
-
-//     // const data = new FormData(event.currentTarget);
-//     // console.log({
-//     //   name: data.get('name'),
-//     //   email: data.get('email'),
-//     //   password: data.get('password'),
-//     // });
-//   };
 
   return (
     <AppTheme {...props}>

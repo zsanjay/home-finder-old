@@ -14,6 +14,8 @@ import { styled } from '@mui/material/styles';
 import ForgotPassword from './ForgotPassword';
 import { GoogleIcon, FacebookIcon, SitemarkIcon } from './CustomIcons';
 import { useForm } from 'react-hook-form';
+import { SignInFn } from '../service/authService';
+import { useMutation } from '@tanstack/react-query';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -41,6 +43,17 @@ export default function SignInCard() {
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
   const [open, setOpen] = React.useState(false);
 
+  const { mutate } = useMutation({
+    mutationFn: SignInFn,
+    onSuccess: (data) => {
+      console.log("User is successfully signed in", data);
+      reset();
+    },
+    onError: (error) => {
+      console.error("SignIn error:", error);
+    }
+  });
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -50,21 +63,9 @@ export default function SignInCard() {
   };
 
   const onSubmit = (data) => {
-    console.log("data ", data);
-    reset();
+    console.log("Submitting data:", data);
+    mutate(data);
   }
-
-  // const handleSubmit = (event) => {
-  //   if (emailError || passwordError) {
-  //     event.preventDefault();
-  //     return;
-  //   }
-  //   const data = new FormData(event.currentTarget);
-  //   console.log({
-  //     email: data.get('email'),
-  //     password: data.get('password'),
-  //   });
-  // };
 
   const validateInputs = () => {
     const email = document.getElementById('email');
@@ -170,7 +171,7 @@ export default function SignInCard() {
           Don&apos;t have an account?{' '}
           <span>
             <Link
-              href="register"
+              href="signup"
               variant="body2"
               sx={{ alignSelf: 'center' }}
             >

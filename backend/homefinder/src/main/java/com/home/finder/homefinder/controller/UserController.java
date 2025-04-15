@@ -24,27 +24,27 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class UserController {
 
-    @Autowired
-    private UserService authService;
+    // @Autowired
+    // private UserService authService;
 
-    @PostMapping("/login")
-    public void login(@RequestBody @Valid LoginRequest loginRequest) {
-        log.info("Auth Controller called "+  loginRequest);
-        try {
-            UserDto userDto = authService.login(loginRequest);
-            if(Objects.nonNull(userDto)) {
-                log.info("Login is successfull");
-            }
-        } catch(UserNotFoundException userNotFoundException) {
-            log.error("Login Falied", userNotFoundException);
-        }
-    }
+    // // @PostMapping("/login")
+    // // public void login(@RequestBody @Valid LoginRequest loginRequest) {
+    // //     log.info("Auth Controller called "+  loginRequest);
+    // //     try {
+    // //         UserDto userDto = authService.login(loginRequest);
+    // //         if(Objects.nonNull(userDto)) {
+    // //             log.info("Login is successfull");
+    // //         }
+    // //     } catch(UserNotFoundException userNotFoundException) {
+    // //         log.error("Login Falied", userNotFoundException);
+    // //     }
+    // // }
 
-    @PostMapping("/register")
-    public void register(@RequestBody @Valid SignUpRequest signUpRequest) {
-        log.info("Register method called "+  signUpRequest);
-        authService.register(signUpRequest);
-        log.info("User is successfully registered");
-    }
+    // // @PostMapping("/register")
+    // // public void register(@RequestBody @Valid SignUpRequest signUpRequest) {
+    // //     log.info("Register method called "+  signUpRequest);
+    // //     authService.register(signUpRequest);
+    // //     log.info("User is successfully registered");
+    // // }
 
 }
