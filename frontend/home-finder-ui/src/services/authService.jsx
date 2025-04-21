@@ -1,4 +1,4 @@
-const BASE_URL = process.env.REACT_APP_HOME_FINDER_API_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_HOME_FINDER_API_URL;
 
 const SignUpFn = async (userData) => {
     try {
