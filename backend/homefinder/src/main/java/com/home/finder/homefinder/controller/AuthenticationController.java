@@ -1,5 +1,8 @@
 package com.home.finder.homefinder.controller;
 
+import com.home.finder.homefinder.model.RefreshRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +23,8 @@ public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
 
+    private static final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
+
     public AuthenticationController(JwtService jwtService, AuthenticationService authenticationService) {
         this.jwtService = jwtService;
         this.authenticationService = authenticationService;
@@ -33,10 +38,11 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> authenticate(@RequestBody UserDto userDto) {
-        User authenticatedUser = authenticationService.authenticate(userDto);
-        String jwtToken = jwtService.generateToken(authenticatedUser);
-        LoginResponse loginResponse = new LoginResponse(jwtToken, jwtService.getExpirationTime());
-        return ResponseEntity.ok(loginResponse);
+        return ResponseEntity.ok(authenticationService.authenticate(userDto));
     }
-
+    @PostMapping("/logout")
+    public String logout(@RequestBody RefreshRequest refreshRequest) {
+        authenticationService.logout(refreshRequest);
+        return "LoggedOut";
+    }
 }
