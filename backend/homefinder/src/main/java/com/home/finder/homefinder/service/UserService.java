@@ -1,47 +1,28 @@
 package com.home.finder.homefinder.service;
 
-import java.util.Optional;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
 import com.home.finder.homefinder.dto.UserDto;
 import com.home.finder.homefinder.entity.User;
 import com.home.finder.homefinder.exception.UserNotFoundException;
-import com.home.finder.homefinder.model.LoginRequest;
-import com.home.finder.homefinder.model.SignUpRequest;
 import com.home.finder.homefinder.repository.UserRepository;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Service
-@Slf4j
 public class UserService {
+    private UserRepository userRepository;
+    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final Logger logger = LoggerFactory.getLogger(UserService.class);
 
-    // private final UserRepository authRepository;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
-    // public UserService(UserRepository authRepository) {
-    //     this.authRepository = authRepository;
-    // }
-
-    // public UserDto login(LoginRequest loginRequest) throws UserNotFoundException {
-       
-    //    Optional<User> userOptional = authRepository.findByEmail(loginRequest.email());
-    //    if(userOptional.isPresent()) {
-    //     User user = userOptional.get();
-    //     return new UserDto(user.getFullName() , user.getEmail(), user.getPassword());
-    //    }
-    //    throw new UserNotFoundException("No User is found with email " + loginRequest.email());
-    // }
-
-    // public UserDto register(SignUpRequest signUpRequest) {
-
-    //     User user = new User();
-    //     user.setId(1l);
-    //     user.setEmail(signUpRequest.email());
-    //     user.setFullName(signUpRequest.fullName());
-    //     user.setPassword(signUpRequest.password());
-
-    //     user = authRepository.save(user);
-    //     return new UserDto(user.getFullName(), user.getEmail(), user.getPassword());
-    // }
+    public UserDto getUser(Long id) throws UserNotFoundException {
+        User user = userRepository.findById(id).
+                orElseThrow(() -> new UserNotFoundException("User with the userId not found " + id));
+        logger.info("user with the email {}", user.getEmail());
+        return new UserDto(user.getFullName(), user.getEmail(), user.getPassword());
+    }
 }
