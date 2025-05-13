@@ -2,6 +2,7 @@ package com.home.finder.homefinder.entity;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -14,6 +15,8 @@ public class User implements UserDetails {
 
     @Transient
     public static final String SEQUENCE_NAME = "users_sequence";
+
+    private List<House> favoriteHouses = new ArrayList<>();
 
     @Id
     private Long id;
