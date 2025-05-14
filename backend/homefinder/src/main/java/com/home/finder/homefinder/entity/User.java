@@ -2,6 +2,7 @@ package com.home.finder.homefinder.entity;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -11,10 +12,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Document(collection = "users")
 public class User implements UserDetails {
-
     @Transient
     public static final String SEQUENCE_NAME = "users_sequence";
-
+    private List<House> favoriteHouses = new ArrayList<>();
     @Id
     private Long id;
     private String fullName;
@@ -57,5 +57,13 @@ public class User implements UserDetails {
     @Override
     public String getUsername() {
         return email;
+    }
+
+    public List<House> getFavoriteHouses() {
+        return favoriteHouses;
+    }
+
+    public void setFavoriteHouses(List<House> favoriteHouses) {
+        this.favoriteHouses = favoriteHouses;
     }
 }

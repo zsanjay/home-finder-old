@@ -1,28 +1,16 @@
 package com.home.finder.homefinder.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 import com.home.finder.homefinder.dto.UserDto;
+import com.home.finder.homefinder.entity.House;
 import com.home.finder.homefinder.entity.User;
-import com.home.finder.homefinder.exception.UserNotFoundException;
-import com.home.finder.homefinder.repository.UserRepository;
 
-@Service
-public class UserService {
-    private UserRepository userRepository;
-    private final ObjectMapper objectMapper = new ObjectMapper();
-    private final Logger logger = LoggerFactory.getLogger(UserService.class);
+import java.util.List;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-    public UserDto getUser(Long id) throws UserNotFoundException {
-        User user = userRepository.findById(id).
-                orElseThrow(() -> new UserNotFoundException("User with the userId not found " + id));
-        logger.info("user with the email {}", user.getEmail());
-        return new UserDto(user.getFullName(), user.getEmail(), user.getPassword());
-    }
+public interface UserService {
+    List<UserDto> getAllUsers();
+    UserDto addUser(User user);
+    UserDto getUserByEmail(String email);
+    UserDto getUser(Long id);
+    void addHouseToFavorites(Long userId, House house);
+    void removeHouseFromFavorites(Long userId, House house);
 }

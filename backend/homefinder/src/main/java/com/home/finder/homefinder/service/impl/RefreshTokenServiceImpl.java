@@ -1,14 +1,16 @@
-package com.home.finder.homefinder.service;
+package com.home.finder.homefinder.service.impl;
 
 import com.home.finder.homefinder.entity.RefreshToken;
 import com.home.finder.homefinder.repository.RefreshTokenRepository;
+import com.home.finder.homefinder.service.JwtService;
+import com.home.finder.homefinder.service.RefreshTokenService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.HashMap;
 
 @Service
-public class RefreshTokenServiceImpl implements RefreshTokenService{
+public class RefreshTokenServiceImpl implements RefreshTokenService {
     private RefreshTokenRepository refreshTokenRepository;
     private JwtService jwtService;
 

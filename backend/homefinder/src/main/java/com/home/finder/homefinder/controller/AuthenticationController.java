@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.home.finder.homefinder.dto.LoginResponse;
 import com.home.finder.homefinder.dto.UserDto;
 import com.home.finder.homefinder.entity.User;
-import com.home.finder.homefinder.service.AuthenticationService;
+import com.home.finder.homefinder.service.impl.AuthenticationServiceImpl;
 import com.home.finder.homefinder.service.JwtService;
 
 @RequestMapping("/auth")
@@ -21,11 +21,11 @@ public class AuthenticationController {
 
     private final JwtService jwtService;
 
-    private final AuthenticationService authenticationService;
+    private final AuthenticationServiceImpl authenticationService;
 
     private static final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
 
-    public AuthenticationController(JwtService jwtService, AuthenticationService authenticationService) {
+    public AuthenticationController(JwtService jwtService, AuthenticationServiceImpl authenticationService) {
         this.jwtService = jwtService;
         this.authenticationService = authenticationService;
     }
