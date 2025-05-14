@@ -8,10 +8,7 @@ public class RefreshToken implements Serializable {
     public String refreshToken;
     public String email;
     public LocalDate createdAt;
-
-    public RefreshToken() {
-
-    }
+    public RefreshToken() {}
     public RefreshToken(String refreshToken, String email, LocalDate createdAt) {
         this.refreshToken = refreshToken;
         this.email = email;

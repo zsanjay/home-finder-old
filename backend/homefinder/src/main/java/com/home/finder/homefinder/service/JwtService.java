@@ -21,7 +21,6 @@ import io.jsonwebtoken.security.Keys;
 
 @Service
 public class JwtService {
-
     @Value("${security.jwt.secret-key}")
     private String secretKey;
 

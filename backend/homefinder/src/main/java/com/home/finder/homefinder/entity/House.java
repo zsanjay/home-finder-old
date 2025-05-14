@@ -1,5 +1,6 @@
 package com.home.finder.homefinder.entity;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Document(collection = "houses")
 public class House implements Serializable {
+    @Id
     private String houseId;
     private int capacity;
     private List<String> imageUrlList;
@@ -28,7 +30,7 @@ public class House implements Serializable {
         this.address = address;
     }
 
-    private String getHouseId() {
+    public String getHouseId() {
         return houseId;
     }
 
