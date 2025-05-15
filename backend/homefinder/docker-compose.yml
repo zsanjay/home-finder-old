@@ -2,6 +2,20 @@
 version: '3.1'
 
 services:
+  app:
+    build: .
+    container_name: home-finder-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo
+      - mongo-express
+      - redis
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://root:password123@mongo:27017/homefinder?authSource=admin
+      SPRING_REDIS_HOST: redis
+    networks:
+      - backend
 
   mongo:
     image: mongo:latest
@@ -12,6 +26,8 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password123
+    networks:
+      - backend
 
   mongo-express:
     image: mongo-express
@@ -22,13 +38,23 @@ services:
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: password123
-      ME_CONFIG_MONGODB_URL: mongodb://root:password123@mongo:27017/
+      ME_CONFIG_MONGODB_URL: mongodb://root:password123@mongo:27017/?authSource=admin
       ME_CONFIG_BASICAUTH: false
+    depends_on:
+      - mongo
+    networks:
+      - backend
 
   redis:
     image: redis:latest
     container_name: home_finder_redis
     ports:
       - "6379:6379"
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
 
 
