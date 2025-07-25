@@ -6,6 +6,8 @@ import theme from '../theme';
 import ReactQueryProvider from '@/components/ReactQueryProvider'
 import { Nunito } from "next/font/google";
 import Navbar from "@/components/navbar/Navbar";
+import ClientOnly from "@/components/ClientOnly";
+import Modal from '../components/modals/Modal';
 
 export const metadata: Metadata = {
   title: "Home Finder",
@@ -26,7 +28,10 @@ export default function RootLayout({
       <body
         className={font.className}
       >
-        <Navbar/>
+        <ClientOnly>
+          <Modal isOpen={false}/>
+          <Navbar />
+        </ClientOnly>
         <ReactQueryProvider>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
