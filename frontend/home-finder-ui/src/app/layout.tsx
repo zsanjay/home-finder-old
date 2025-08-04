@@ -11,6 +11,7 @@ import RegisterModal from "@/components/modals/RegisterModal";
 import ToasterProvider from "./providers/ToasterProvider";
 import LoginModal from "@/components/modals/LoginModal";
 import getCurrentUser from "./actions/getCurrentUser";
+import RentModel from "@/components/modals/RentModal";
 
 export const metadata: Metadata = {
   title: "Home Finder",
@@ -36,6 +37,7 @@ export default async function RootLayout({
           <ToasterProvider />
           <RegisterModal />
           <LoginModal />
+          <RentModel />
           <Navbar currentUser={currentUser}/>
         </ClientOnly>
         <ReactQueryProvider>
