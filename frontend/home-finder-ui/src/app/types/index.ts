@@ -1,5 +1,5 @@
 import { User } from "next-auth";
-import { Listing } from "../../../generated/prisma";
+import { Listing, Reservation } from "../../../generated/prisma";
 
 export type SafeListings = Omit<
     Listing,
@@ -7,6 +7,16 @@ export type SafeListings = Omit<
 > & {
     createdAt : string;
 };
+
+export type SafeReservations = Omit<
+    Reservation,
+    "createdAt" | "startDate" | "endDate" | "listing"
+> & {
+    createdAt: string;
+    startDate: string;
+    endDate: string;
+    listing: SafeListings;
+}
 
 export type SafeUser = Omit<
     User,
