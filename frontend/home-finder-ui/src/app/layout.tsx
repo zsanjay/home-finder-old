@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import './globals.css';
-import ReactQueryProvider from '@/components/ReactQueryProvider'
 import { Nunito } from "next/font/google";
 import Navbar from "@/components/navbar/Navbar";
 import ClientOnly from "@/components/ClientOnly";
@@ -42,8 +41,6 @@ export default async function RootLayout({
         <div className="pb-20 pt-28">
           {children}
         </div>
-        <ReactQueryProvider>
-        </ReactQueryProvider>
       </body>
     </html>
   );
